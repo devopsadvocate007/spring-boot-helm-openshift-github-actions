@@ -1,0 +1,26 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: springbootapp
+  labels:
+    app: springbootapp
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/devopsadvocate007/spring-boot-helm-openshift-github-actions
+    contextDir: .
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      from:
+        kind: ImageStreamTag       # Use an imagestream tag as 'FROM'
+        namespace: naveen-will-dev    # Which project?
+        name: springboot:latest         # Use the imagestream created above
+  output:
+    to:
+      kind: ImageStreamTag
+      name: springbootapp:latest
+  triggers:
+  - type: ImageChange              # Trigger a build on image change%

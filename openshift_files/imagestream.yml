@@ -1,0 +1,14 @@
+piVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: springboot
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - name: latest
+    from:
+      kind: DockerImage
+      name: bitnami/apache
+    referencePolicy:
+      type: Source
